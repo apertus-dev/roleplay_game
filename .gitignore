@@ -6,3 +6,4 @@ data/game.db
 server.log
 venv/
 .env
+deploy/
