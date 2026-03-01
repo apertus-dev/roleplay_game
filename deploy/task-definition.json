@@ -1,0 +1,35 @@
+{
+    "family": "roleplay-game",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "256",
+    "memory": "512",
+    "executionRoleArn": "arn:aws:iam::722977099337:role/ecsTaskExecutionRole",
+    "containerDefinitions": [
+        {
+            "name": "roleplay-game",
+            "image": "722977099337.dkr.ecr.ap-northeast-1.amazonaws.com/roleplay-game:latest",
+            "portMappings": [
+                {
+                    "containerPort": 5001,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "SECRET_KEY",
+                    "value": "CHANGE_ME_TO_A_RANDOM_STRING"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/roleplay-game",
+                    "awslogs-region": "ap-northeast-1",
+                    "awslogs-stream-prefix": "ecs",
+                    "awslogs-create-group": "true"
+                }
+            }
+        }
+    ]
+}

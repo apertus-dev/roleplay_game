@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+data/game.db
+*.xlsx
+.DS_Store
+server.log
+venv/
+.env
+.git/
+deploy/
+故事线全景图.md
+convert_excel_to_json.py
