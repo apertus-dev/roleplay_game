@@ -1,0 +1,374 @@
+{
+  "node_1_0": {
+    "node_id": "node_1_0",
+    "title": "院内外发药交锋",
+    "scene": {
+      "location": "市第一人民医院 · 行政楼三层 · 院长助理办公室",
+      "time": "周三下午 14:30",
+      "narration": "你推开厚重的木门，办公室里弥漫着淡淡的茶香。王副院长坐在宽大的办公桌后，面前摊开着一叠药品目录。他没有抬头，只是用手指轻轻敲了敲桌面，示意你坐下。",
+      "mood": "neutral"
+    },
+    "npc_action": "翻开桌上的资料，目光扫过你递来的产品手册",
+    "npc_dialogue": "你们这个伊赫莱是口服片剂，让患者去院外拿药挺方便的。到底为什么要挤进医院来占我们目录名额？",
+    "choices": [
+      {
+        "text": "顺应国家双通道政策，提高患者依从性，实现院内外规范化管理闭环。",
+        "type": "trap",
+        "impact": { "safety": -10, "willingness": -5 },
+        "tag": "反感大词：NPC认为你在背书和用政策压人",
+        "npc_reaction": { "action": "把资料往桌上一放，往后靠了靠", "emotion": "irritated", "thought": "又来这套官话……" },
+        "next_node": "node_1_1a"
+      },
+      {
+        "text": "院外药房经常缺货，患者跑来跑去买不到药，不利于长期的治疗。",
+        "type": "trap",
+        "impact": { "safety": -20, "willingness": -5 },
+        "tag": "警惕合规：NPC认为你在转移商业断货矛盾",
+        "npc_reaction": { "action": "眉头紧锁，手指停止敲击桌面", "emotion": "suspicious", "thought": "缺货是你们的问题，别往医院身上甩" },
+        "next_node": "node_1_1b"
+      },
+      {
+        "text": "靶向药初期极易发生高血糖，医生需要频繁在院内查血，一旦超标必须立刻改剂量。",
+        "type": "correct",
+        "impact": { "safety": 10, "willingness": 15 },
+        "tag": "认可临床必要性：将进药与查血、改剂量强绑定",
+        "npc_reaction": { "action": "微微点头，拿起笔在资料上画了个圈", "emotion": "interested", "thought": "这倒是个实际问题" },
+        "next_node": "node_2_0"
+      }
+    ]
+  },
+  "node_1_1a": {
+    "node_id": "node_1_1a",
+    "title": "延迟结算·政策反击",
+    "scene": {
+      "narration": "办公室的气氛骤然冷了几度。王副院长往后靠在椅背上，双手交叉放在胸前，用一种审视的目光看着你。",
+      "mood": "tense"
+    },
+    "npc_action": "往后靠在椅背上，双臂交叉",
+    "npc_dialogue": "政策也是鼓励处方外流的。撇开这些大词，你们非要进院开药的真实原因到底是什么？",
+    "choices": [
+      {
+        "text": "还是为了赋能科室，打造标准化的乳腺癌诊疗体系。",
+        "type": "trap",
+        "impact": { "safety": -15, "willingness": -10 },
+        "tag": "严重丧失耐心：面临被赶出的风险",
+        "npc_reaction": { "action": "深吸一口气，看了一眼门口", "emotion": "angry", "thought": "还在说空话，我的时间很宝贵" },
+        "next_node": "node_1_2"
+      },
+      {
+        "text": "主要是患者初期用药会有反应，要在院内随时查血和调整剂量，去外面拿药没法及时处理。",
+        "type": "correct",
+        "impact": { "safety": 10, "willingness": 10 },
+        "tag": "勉强拉回主线：解除反感状态",
+        "npc_reaction": { "action": "身体微微前倾，重新拿起了资料", "emotion": "neutral", "thought": "总算说了句人话" },
+        "next_node": "node_2_0"
+      }
+    ]
+  },
+  "node_1_1b": {
+    "node_id": "node_1_1b",
+    "title": "延迟结算·安全追问",
+    "scene": {
+      "narration": "王副院长的表情变得严肃起来。他放下手中的笔，直直地盯着你，语气中带着一丝质问。",
+      "mood": "tense"
+    },
+    "npc_action": "眉头紧锁，身体前倾",
+    "npc_dialogue": "药房缺货是你们的供货问题。要是患者在外面吃出高血糖跑来闹，这个安全责任谁来担？",
+    "choices": [
+      {
+        "text": "我们会加强院外药房的供货协同，尽量不给医院添麻烦。",
+        "type": "trap",
+        "impact": { "safety": -15, "willingness": -5 },
+        "tag": "责任恐慌：未打消医疗安全隐患顾虑",
+        "npc_reaction": { "action": "摇了摇头，把资料合上", "emotion": "disappointed", "thought": "还是在回避核心问题" },
+        "next_node": "node_1_2"
+      },
+      {
+        "text": "正是为了防范这种风险，才需要留在院内，让医生通过查血和改剂量把控安全，随时处理不良反应。",
+        "type": "correct",
+        "impact": { "safety": 15, "willingness": 10 },
+        "tag": "安全感修复：成功用安全打败甩锅",
+        "npc_reaction": { "action": "缓缓点头，重新打开了资料", "emotion": "approving", "thought": "这个角度倒是站得住" },
+        "next_node": "node_2_0"
+      }
+    ]
+  },
+  "node_1_2": {
+    "node_id": "node_1_2",
+    "title": "濒危警告",
+    "scene": {
+      "narration": "空气几乎凝固了。王副院长的手已经放在了桌上的电话机旁，似乎随时准备结束这场对话。你感到后背一阵发凉。",
+      "mood": "critical"
+    },
+    "npc_action": "手放在电话机上，语气冰冷",
+    "npc_dialogue": "我时间有限。你再给我一个理由——为什么这个药非得在院内？说不出来我们今天就到这里。",
+    "choices": [
+      {
+        "text": "靶向药初期会引发高血糖，必须在院内频繁查血和调整剂量，这是临床安全的刚需。",
+        "type": "correct",
+        "impact": { "safety": 10, "willingness": 5 },
+        "tag": "绝地求生：最后一次机会拉回主线",
+        "npc_reaction": { "action": "手从电话上移开，重新看向你", "emotion": "neutral", "thought": "……继续说" },
+        "next_node": "node_2_0"
+      },
+      {
+        "text": "我们公司非常重视和贵院的战略合作关系……",
+        "type": "trap",
+        "impact": { "safety": -20, "willingness": -10 },
+        "tag": "彻底出局：耐心耗尽被请出办公室",
+        "npc_reaction": { "action": "站起身来，伸手指向门口", "emotion": "angry", "thought": "浪费我时间" },
+        "next_node": "ending_lose"
+      }
+    ]
+  },
+  "node_2_0": {
+    "node_id": "node_2_0",
+    "title": "历史资源拷问",
+    "scene": {
+      "narration": "王副院长的态度有所缓和。他微微点头，翻开了另一份文件——上面是医院近年来与各药企的合作记录。",
+      "mood": "neutral"
+    },
+    "npc_action": "微微点头，翻开合作记录",
+    "npc_dialogue": "查血改剂量确实得在院内盯着。你们罗氏也有很多产品已经在我们医院准入了，如果有一些投入那可以考虑院内准入这条路子，你们和我们医院既往的合作有哪些？",
+    "choices": [
+      {
+        "text": "只要伊赫莱能顺利进院，我们市场部后续一定会投入大量资源支持医院。",
+        "type": "trap",
+        "impact": { "safety": -5, "willingness": -15 },
+        "tag": "怀疑ROI：NPC最反感空头支票",
+        "npc_reaction": { "action": "把合作记录往你面前一推", "emotion": "irritated", "thought": "又是画饼，我要看过去的成绩" },
+        "next_node": "node_2_1"
+      },
+      {
+        "text": "我们一直是医院坚实的战略合作伙伴，在学术交流上有很多协同。",
+        "type": "neutral",
+        "impact": { "safety": -5, "willingness": -5 },
+        "tag": "厌恶空话：未提供具体可查证的项目",
+        "npc_reaction": { "action": "手指敲击桌面，等待你说出具体内容", "emotion": "impatient", "thought": "说具体的" },
+        "next_node": "node_2_1"
+      },
+      {
+        "text": "过去几年我们在咱们院落地了多个GCP项目，也一直支持肿瘤科的学术会议。",
+        "type": "correct",
+        "impact": { "safety": 10, "willingness": 20 },
+        "tag": "验证资源实力：成功激活院长助理视角的认可",
+        "npc_reaction": { "action": "在合作记录上找到了对应条目，用笔画了个勾", "emotion": "satisfied", "thought": "确实有这些项目，不是空口白话" },
+        "next_node": "node_3_0"
+      }
+    ]
+  },
+  "node_2_1": {
+    "node_id": "node_2_1",
+    "title": "延迟结算·资源逼问",
+    "scene": {
+      "narration": "王副院长把合作记录推到你面前，手指有节奏地敲击着桌面。每一下都像是在倒计时。",
+      "mood": "pressured"
+    },
+    "npc_action": "手指敲击桌面，语气加重",
+    "npc_dialogue": "我不听将来的承诺和战略。你具体说说，过去一年在我们医院落地了什么实实在在的动作？",
+    "choices": [
+      {
+        "text": "这……我们有很多常规的科室会和病例讨论活动。",
+        "type": "trap",
+        "impact": { "safety": -10, "willingness": -15 },
+        "tag": "判定无价值：认为罗氏诚意不足",
+        "npc_reaction": { "action": "叹了口气，把合作记录收了回去", "emotion": "disappointed", "thought": "科室会谁都能做，没有含金量" },
+        "next_node": "node_3_0"
+      },
+      {
+        "text": "去年推动了牵头多中心临床试验(RCT)的启动，帮吴院助拿到了科研转化积分。",
+        "type": "correct",
+        "impact": { "safety": 5, "willingness": 15 },
+        "tag": "信誉修复：踩准国考科研指标痛点",
+        "npc_reaction": { "action": "眼神一亮，在记录上快速翻找", "emotion": "impressed", "thought": "RCT和科研积分……这个确实有分量" },
+        "next_node": "node_3_0"
+      }
+    ]
+  },
+  "node_3_0": {
+    "node_id": "node_3_0",
+    "title": "规格冲突",
+    "scene": {
+      "narration": "王副院长端起茶杯，轻抿一口。他的语气变得随意了一些——但你知道，真正的考验才刚刚开始。",
+      "mood": "testing"
+    },
+    "npc_action": "端起茶杯，语气看似随意",
+    "npc_dialogue": "认可罗氏跟医院既往合作挺好。咱们医院是一个规格一张单子，药剂科主任跟我说伊赫莱选个9毫克的进不就行了？",
+    "choices": [
+      {
+        "text": "那……如果实在困难，我们先重点突破9毫克，3毫克以后再说也行。",
+        "type": "trap",
+        "impact": { "safety": 0, "willingness": -20 },
+        "tag": "丧失双规机会：触发Bad Ending倒计时",
+        "npc_reaction": { "action": "嘴角微微上扬，在心里已经给你打了折扣", "emotion": "dismissive", "thought": "自己都不坚持，那就一个规格吧" },
+        "next_node": "node_4_0"
+      },
+      {
+        "text": "双规格一起进，才能给临床提供最完整的靶向治疗解决方案。",
+        "type": "neutral",
+        "impact": { "safety": -5, "willingness": -5 },
+        "tag": "反感占名额：NPC认为你在挤占医院品规",
+        "npc_reaction": { "action": "放下茶杯，皱起眉头", "emotion": "resistant", "thought": "又想多占名额" },
+        "next_node": "node_3_1"
+      },
+      {
+        "text": "9毫克不能掰开，一旦出现皮疹，医生必须立刻换开3毫克来降剂量。",
+        "type": "correct",
+        "impact": { "safety": 20, "willingness": 15 },
+        "tag": "打通安全底线：将3mg与用药安全强绑定",
+        "npc_reaction": { "action": "放下茶杯，认真地看着你", "emotion": "convinced", "thought": "不能掰开……这确实是个硬约束" },
+        "next_node": "node_4_0"
+      }
+    ]
+  },
+  "node_3_1": {
+    "node_id": "node_3_1",
+    "title": "延迟结算·减量逼问",
+    "scene": {
+      "narration": "王副院长放下茶杯，身体前倾。他的问题越来越尖锐——你能感觉到他在试探你的底线。",
+      "mood": "pressured"
+    },
+    "npc_action": "放下茶杯，皱起眉头",
+    "npc_dialogue": "既然要改剂量，那就在院内开9毫克，让要减量的患者自己去外面配3毫克不就好了？",
+    "choices": [
+      {
+        "text": "院外双通道的报销比例有时候不一样，患者会为了报销来回投诉。",
+        "type": "trap",
+        "impact": { "safety": -10, "willingness": -5 },
+        "tag": "医保敏感：触及医保报销敏感话题",
+        "npc_reaction": { "action": "脸色一沉", "emotion": "wary", "thought": "医保的事少提，这是敏感区" },
+        "next_node": "node_4_0"
+      },
+      {
+        "text": "减量期是最危险的，去外面配药会降低复诊频率，医生没法及时处理高血糖，容易出医疗隐患。",
+        "type": "correct",
+        "impact": { "safety": 15, "willingness": 10 },
+        "tag": "安全感拉满：成功化解院外配药风险",
+        "npc_reaction": { "action": "缓缓点头，拿起笔记了几个字", "emotion": "approving", "thought": "安全问题确实不能马虎" },
+        "next_node": "node_4_0"
+      }
+    ]
+  },
+  "node_4_0": {
+    "node_id": "node_4_0",
+    "title": "患者基数拷问",
+    "scene": {
+      "narration": "王副院长翻开了一份患者数据报告。他的手指停在PIK3CA突变的统计数字上，抬起头看向你。",
+      "mood": "challenging"
+    },
+    "npc_action": "翻阅目录，指着数据",
+    "npc_dialogue": "就算是为了改剂量保安全。但PIK3CA这个靶点的患者这么少，值得专门占名额给你们进两个规格吗？",
+    "choices": [
+      {
+        "text": "其实患者不少，只是现在很多患者都流失到外面去了，进院能把人拉回来。",
+        "type": "trap",
+        "impact": { "safety": -15, "willingness": -10 },
+        "tag": "触发违禁词：严禁提患者回流",
+        "npc_reaction": { "action": "猛地抬头，眼神变得锐利", "emotion": "angry", "thought": "患者回流？这话不能说" },
+        "next_node": "node_4_1"
+      },
+      {
+        "text": "因为PIK3CA是中国人群高频突变，作为创新药，先进院总是没错的。",
+        "type": "neutral",
+        "impact": { "safety": -5, "willingness": -5 },
+        "tag": "缺乏经济抓手：不能转化为医院的账面收益",
+        "npc_reaction": { "action": "不置可否地摇了摇头", "emotion": "unimpressed", "thought": "学术价值我知道，但医院要算经济账" },
+        "next_node": "node_4_1"
+      },
+      {
+        "text": "以前没药医生才不开单检测，现在进药，正好能把病理科PCR和NGS这两项收费检测全面带动起来，增加门诊服务收入。",
+        "type": "correct",
+        "impact": { "safety": 10, "willingness": 20 },
+        "tag": "打通运营闭环：完美契合提高医疗服务收入KPI",
+        "npc_reaction": { "action": "眼前一亮，拿起计算器按了几下", "emotion": "excited", "thought": "检测收入……这笔账算得过来" },
+        "next_node": "node_5_0"
+      }
+    ]
+  },
+  "node_4_1": {
+    "node_id": "node_4_1",
+    "title": "延迟结算·经济账追问",
+    "scene": {
+      "narration": "王副院长靠在椅背上，双手交叉。他的耐心正在快速消耗——你需要拿出真正有说服力的东西。",
+      "mood": "critical"
+    },
+    "npc_action": "靠在椅背上，语气疲惫",
+    "npc_dialogue": "说点实际的。我这进两个规格，到底能给医院明年的国考和运营指标带来什么可见的好处？",
+    "choices": [
+      {
+        "text": "能极大提升肿瘤内科的区域学术影响力。",
+        "type": "trap",
+        "impact": { "safety": 0, "willingness": -15 },
+        "tag": "空洞无物：耐心耗尽",
+        "npc_reaction": { "action": "看了一眼手表，开始整理桌上的文件", "emotion": "done", "thought": "又是空话，这个人没什么干货" },
+        "next_node": "node_5_0"
+      },
+      {
+        "text": "能合规地带动精准检测收费，提升医院医疗服务收入占比，并且把需要复诊查血的患者留在院内随访。",
+        "type": "correct",
+        "impact": { "safety": 10, "willingness": 15 },
+        "tag": "理清ROI：用具体运营动作说服王副院长视角",
+        "npc_reaction": { "action": "停下整理文件的手，重新看向你", "emotion": "reconsidering", "thought": "检测收费加复诊……这确实能算一笔账" },
+        "next_node": "node_5_0"
+      }
+    ]
+  },
+  "node_5_0": {
+    "node_id": "node_5_0",
+    "title": "终极收口时刻",
+    "scene": {
+      "narration": "王副院长合上了面前所有的文件，看了一眼手表。窗外的阳光已经西斜，在办公桌上投下长长的影子。这是最后的机会——你的下一句话，将决定整场谈判的成败。",
+      "mood": "final"
+    },
+    "npc_action": "合上文件夹，看了一眼手表",
+    "npc_dialogue": "规范检测和院内复诊对我们确实有些实际用处。你今天到底要我这边协调什么具体安排？",
+    "choices": [
+      {
+        "text": "希望您支持伊赫莱尽早进院，解决患者用药难的问题。",
+        "type": "trap",
+        "impact": { "safety": 0, "willingness": 0 },
+        "tag": "未满足Section 7-A：未提双规格",
+        "npc_reaction": { "action": "微微皱眉，等了几秒没听到下文", "emotion": "disappointed", "thought": "就这？连具体规格都没提" },
+        "next_node": "ending_lose"
+      },
+      {
+        "text": "想请您和药剂科打个招呼，别卡我们3毫克规格的审批。",
+        "type": "neutral",
+        "impact": { "safety": 0, "willingness": 0 },
+        "tag": "未满足Section 7-A：未提正式准入",
+        "npc_reaction": { "action": "摆了摆手", "emotion": "dismissive", "thought": "打招呼？这不是正式流程" },
+        "next_node": "ending_lose"
+      },
+      {
+        "text": "希望您能考虑伊赫莱9毫克与3毫克双规格都能在院内正式准入，保障医生能随时改剂量和处理不良反应。",
+        "type": "correct",
+        "impact": { "safety": 0, "willingness": 0 },
+        "tag": "触发固定收口台词：达成全部条件",
+        "npc_reaction": { "action": "沉默了几秒，缓缓点头", "emotion": "agreeing", "thought": "逻辑通了，可以考虑" },
+        "next_node": "ending_win"
+      }
+    ]
+  },
+  "ending_win": {
+    "node_id": "ending_win",
+    "title": "谈判成功",
+    "scene": {
+      "narration": "王副院长站起身来，走到窗前，背对着你沉默了片刻。然后他转过身，脸上露出了今天第一个真正的笑容。",
+      "mood": "victory"
+    },
+    "npc_action": "站起身，伸出手",
+    "npc_dialogue": "行，我会考虑你说的伊赫莱 9mg 和 3mg 双规格的院内正式准入。你回去准备一份正式的材料，下周药事会我帮你推一下。",
+    "choices": []
+  },
+  "ending_lose": {
+    "node_id": "ending_lose",
+    "title": "谈判失败",
+    "scene": {
+      "narration": "王副院长站起身来，拿起桌上的手机看了一眼。他的表情已经恢复了公式化的客气——你知道，这场对话已经结束了。",
+      "mood": "defeat"
+    },
+    "npc_action": "站起身，礼貌但疏离地伸出手",
+    "npc_dialogue": "今天就先聊到这里吧。你们的情况我了解了，后面有需要再联系。",
+    "choices": []
+  }
+}

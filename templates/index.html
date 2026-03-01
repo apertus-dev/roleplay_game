@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>守门人的突围</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- 开始界面 -->
+    <div id="start-screen" class="screen active">
+        <div class="start-overlay">
+            <div class="start-content">
+                <div class="start-badge">KAM 商务谈判模拟训练</div>
+                <h1 class="start-title">守门人的突围</h1>
+                <p class="start-desc">你是罗氏制药的大客户经理。今天下午，你将走进市第一人民医院王副院长的办公室，为伊赫莱争取双规格院内准入。<br><br>每一句话都可能改变局势。选错了，不会立刻出局——但压力会层层叠加。</p>
+                <input type="text" id="player-name" placeholder="输入你的姓名" maxlength="20">
+                <button onclick="startGame()" class="btn-start">进入谈判室</button>
+                <a href="/history" class="start-history-link">查看历史记录 →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 游戏主界面 -->
+    <div id="game-screen" class="screen">
+        <!-- 顶部状态栏 -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <span class="round-badge" id="round-badge">ROUND 0/10</span>
+                <span class="location-text" id="location-text"></span>
+            </div>
+            <div class="top-bar-right">
+                <div class="meter">
+                    <span class="meter-label">安全感</span>
+                    <div class="meter-bar"><div class="meter-fill safety" id="safety-bar"></div></div>
+                    <span class="meter-value" id="safety-value">30</span>
+                </div>
+                <div class="meter">
+                    <span class="meter-label">意愿度</span>
+                    <div class="meter-bar"><div class="meter-fill willingness" id="willingness-bar"></div></div>
+                    <span class="meter-value" id="willingness-value">10</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主内容区 -->
+        <div class="game-body">
+            <!-- 场景叙述区 -->
+            <div class="narrative-area" id="narrative-area"></div>
+
+            <!-- 对话区 -->
+            <div class="dialogue-area" id="dialogue-area"></div>
+
+            <!-- 选项区 -->
+            <div class="choices-area" id="choices-area"></div>
+        </div>
+    </div>
+
+    <!-- 结算界面 -->
+    <div id="end-screen" class="screen">
+        <div class="end-overlay">
+            <div class="end-content">
+                <div class="end-icon" id="end-icon"></div>
+                <h1 class="end-title" id="end-title"></h1>
+                <p class="end-reason" id="end-reason"></p>
+                <div class="end-stats" id="end-stats"></div>
+                <div class="aar-box">
+                    <div class="aar-title">复盘分析 (After Action Review)</div>
+                    <div class="aar-content" id="aar-content"></div>
+                </div>
+                <div class="end-actions">
+                    <button onclick="location.reload()" class="btn-start">再来一次</button>
+                    <a href="/history" class="btn-ghost">查看历史记录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/game.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史记录 - 守门人的突围</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="history-page">
+        <div class="history-page-header">
+            <h1>游戏历史记录</h1>
+            <a href="/" class="btn-ghost">返回游戏</a>
+        </div>
+        <div id="history-list">
+            <div class="empty-state">加载中...</div>
+        </div>
+    </div>
+
+    <script>
+        const typeLabels = { correct: '破局', trap: '踩雷', neutral: '套话' };
+        
+        async function loadHistory() {
+            const res = await fetch('/api/history');
+            const games = await res.json();
+            const el = document.getElementById('history-list');
+            
+            if (!games.length) {
+                el.innerHTML = '<div class="empty-state">暂无游戏记录，去玩一局吧</div>';
+                return;
+            }
+            
+            el.innerHTML = games.map(game => {
+                const history = JSON.parse(game.history || '[]');
+                const dialogueHtml = history.map(h => `
+                    <div class="history-dialogue">
+                        <div class="history-npc"><strong>${h.node_title || 'NPC'}</strong>：${h.npc_dialogue}</div>
+                        <div class="history-player">
+                            你：${h.player_choice}
+                            <span class="history-choice-type ${h.choice_type}">${typeLabels[h.choice_type] || h.choice_type}</span>
+                            <span style="color:var(--text-dim);font-size:12px;margin-left:8px;">
+                                安全感 ${h.safety_delta >= 0 ? '+' : ''}${h.safety_delta} / 意愿度 ${h.willingness_delta >= 0 ? '+' : ''}${h.willingness_delta}
+                            </span>
+                        </div>
+                    </div>
+                `).join('');
+                
+                return `
+                    <div class="history-item">
+                        <div class="history-header-row">
+                            <span class="player-name">${game.player_name || '匿名玩家'}</span>
+                            <span class="result-badge ${game.result}">${game.result === 'win' ? '✓ 胜利' : '✗ 失败'}</span>
+                        </div>
+                        <div class="history-stats">
+                            <span>回合 ${game.rounds_played}</span>
+                            <span>安全感 ${game.final_safety}</span>
+                            <span>意愿度 ${game.final_willingness}</span>
+                        </div>
+                        <div class="history-time">${new Date(game.created_at).toLocaleString('zh-CN')}</div>
+                        <details class="dialogue-details">
+                            <summary>查看完整对话 (${history.length} 轮)</summary>
+                            <div class="dialogue-content">${dialogueHtml}</div>
+                        </details>
+                        <div class="aar-section">
+                            <div class="aar-title" style="font-size:12px;color:var(--text-dim);letter-spacing:2px;margin-bottom:8px;">复盘评语</div>
+                            <div class="aar-preview">${game.aar_text}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        loadHistory();
+    </script>
+</body>
+</html>
