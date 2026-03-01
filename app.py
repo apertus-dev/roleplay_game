@@ -3,7 +3,8 @@ import database
 from game_engine import GameEngine
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-change-in-production'
+import os
+app.secret_key = os.environ.get('SECRET_KEY', os.urandom(24))
 
 engine = GameEngine()
 database.init_db()
