@@ -67,7 +67,7 @@ async function renderScene(node) {
         const narDiv = document.createElement('div');
         narDiv.className = 'scene-narration';
         area.appendChild(narDiv);
-        await typeText(narDiv, node.scene.narration, 25);
+        await typeText(narDiv, node.scene.narration, 50);
         await sleep(400);
     }
 }
@@ -102,7 +102,7 @@ async function renderDialogue(node) {
     block.appendChild(dialogueDiv);
     area.appendChild(block);
     
-    await typeText(textDiv, node.npc_dialogue, 30);
+    await typeText(textDiv, node.npc_dialogue, 55);
     await sleep(300);
 }
 
@@ -145,14 +145,14 @@ async function showReaction(reaction) {
     block.appendChild(actionDiv);
     area.appendChild(block);
     
-    await typeText(actionDiv, reaction.action, 35);
+    await typeText(actionDiv, reaction.action, 50);
     
     if (reaction.thought) {
         await sleep(800);
         const thoughtDiv = document.createElement('div');
         thoughtDiv.className = 'reaction-thought';
         block.appendChild(thoughtDiv);
-        await typeText(thoughtDiv, reaction.thought, 40);
+        await typeText(thoughtDiv, reaction.thought, 55);
     }
     
     await sleep(600);
