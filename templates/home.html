@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>守门人的突围 - 场景选择</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .home-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 32px;
+        }
+        .home-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .home-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(74,158,255,0.1);
+            border: 1px solid rgba(74,158,255,0.3);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--accent-blue);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .home-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        .home-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .scenario-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+        .scenario-card.enabled:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(74,158,255,0.15);
+        }
+        .scenario-card.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .scenario-icon {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+        .scenario-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .scenario-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .scenario-tag {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .scenario-tag.ready {
+            background: rgba(52,211,153,0.15);
+            color: var(--accent-green);
+        }
+        .scenario-tag.coming {
+            background: rgba(138,138,138,0.15);
+            color: var(--text-dim);
+        }
+        .home-footer {
+            text-align: center;
+            margin-top: 48px;
+        }
+        .home-footer a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .home-footer a:hover { color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <div class="home-container">
+        <div class="home-header">
+            <div class="home-badge">KAM 商务谈判模拟训练</div>
+            <h1 class="home-title">守门人的突围</h1>
+            <p class="home-subtitle">选择一个训练场景开始</p>
+        </div>
+        <div class="scenario-grid" id="scenario-grid"></div>
+        <div class="home-footer">
+            <a href="/history">查看历史记录 →</a>
+        </div>
+    </div>
+
+    <script>
+        async function loadScenarios() {
+            const res = await fetch('/api/scenarios');
+            const scenarios = await res.json();
+            const grid = document.getElementById('scenario-grid');
+            
+            grid.innerHTML = scenarios.map(s => {
+                const enabled = s.enabled && s.story_file;
+                return `
+                    <${enabled ? `a href="/play/${s.id}"` : 'div'} class="scenario-card ${enabled ? 'enabled' : 'disabled'}">
+                        <div class="scenario-icon">${s.icon}</div>
+                        <div class="scenario-name">${s.name}</div>
+                        <div class="scenario-desc">${s.description}</div>
+                        <span class="scenario-tag ${enabled ? 'ready' : 'coming'}">${enabled ? '可训练' : '即将上线'}</span>
+                    </${enabled ? 'a' : 'div'}>
+                `;
+            }).join('');
+        }
+        loadScenarios();
+    </script>
+</body>
+</html>

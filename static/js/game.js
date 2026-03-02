@@ -176,11 +176,12 @@ async function transition(text = '...') {
 // 开始游戏
 async function startGame() {
     const name = document.getElementById('player-name').value.trim() || '匿名玩家';
+    const scenarioId = document.getElementById('scenario-id').value;
     
     const res = await fetch('/api/game/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ player_name: name })
+        body: JSON.stringify({ player_name: name, scenario_id: parseInt(scenarioId) })
     });
     const data = await res.json();
     

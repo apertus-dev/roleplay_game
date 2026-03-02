@@ -11,12 +11,13 @@
     <div id="start-screen" class="screen active">
         <div class="start-overlay">
             <div class="start-content">
-                <div class="start-badge">KAM 商务谈判模拟训练</div>
+                <div class="start-badge">{{ scenario.icon }} {{ scenario.name }}</div>
                 <h1 class="start-title">守门人的突围</h1>
-                <p class="start-desc">你是罗氏制药的大客户经理。今天下午，你将走进市第一人民医院王副院长的办公室，为伊赫莱争取双规格院内准入。<br><br>每一句话都可能改变局势。选错了，不会立刻出局——但压力会层层叠加。</p>
+                <p class="start-desc">{{ scenario.description }}<br><br>每一句话都可能改变局势。选错了，不会立刻出局——但压力会层层叠加。</p>
+                <input type="hidden" id="scenario-id" value="{{ scenario.id }}">
                 <input type="text" id="player-name" placeholder="输入你的姓名" maxlength="20">
                 <button onclick="startGame()" class="btn-start">进入谈判室</button>
-                <a href="/history" class="start-history-link">查看历史记录 →</a>
+                <a href="/" class="start-history-link">← 返回场景选择</a>
             </div>
         </div>
     </div>
@@ -69,8 +70,8 @@
                     <div class="aar-content" id="aar-content"></div>
                 </div>
                 <div class="end-actions">
-                    <button onclick="location.reload()" class="btn-start">再来一次</button>
-                    <a href="/history" class="btn-ghost">查看历史记录</a>
+                    <button onclick="location.href='/'" class="btn-start">返回首页</button>
+                    <button onclick="location.reload()" class="btn-ghost">再来一次</button>
                 </div>
             </div>
         </div>

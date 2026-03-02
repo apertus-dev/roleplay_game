@@ -49,6 +49,7 @@
                     <div class="history-item">
                         <div class="history-header-row">
                             <span class="player-name">${game.player_name || '匿名玩家'}</span>
+                            <span style="font-size:13px;color:var(--text-dim)">${game.scenario_name || ''}</span>
                             <span class="result-badge ${game.result}">${game.result === 'win' ? '✓ 胜利' : '✗ 失败'}</span>
                         </div>
                         <div class="history-stats">
