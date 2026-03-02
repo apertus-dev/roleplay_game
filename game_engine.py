@@ -58,28 +58,31 @@ class GameEngine:
         state['current_node'] = choice['next_node']
         return state, choice['next_node'], reaction
     
-    def check_game_over(self, state):
+    def check_game_over(self, state, scenario):
         if state['safety'] <= 0:
-            return True, 'lose', '院方安全感归零——对方失去了所有耐心，谈判破裂。'
+            return True, 'lose', scenario.get('lose_safety_text') or '安全感归零，谈判破裂。'
         if state['current_node'] == 'ending_win':
-            if state['willingness'] >= 50:
-                return True, 'win', '谈判成功！你达成了预期目标。'
+            threshold = scenario.get('win_threshold', 50)
+            if state['willingness'] >= threshold:
+                return True, 'win', scenario.get('win_text') or '谈判成功！'
             else:
-                return True, 'lose', '虽然完成了对话，但意愿度不足，对方不会真正推动。'
+                return True, 'lose', scenario.get('lose_willingness_text') or '意愿度不足，未能达成目标。'
         if state['current_node'] == 'ending_lose':
-            return True, 'lose', '未能在关键时刻提出完整诉求，谈判未达成目标。'
+            return True, 'lose', scenario.get('lose_ending_text') or '未能达成目标。'
         if state['rounds'] >= state.get('max_rounds', 10):
-            return True, 'lose', '对话回合耗尽，对方已经没有时间继续听下去了。'
+            return True, 'lose', scenario.get('lose_timeout_text') or '对话回合耗尽。'
         return False, None, None
     
-    def generate_aar(self, tags, result):
+    def generate_aar(self, tags, result, scenario):
         correct = [t for t in tags if any(k in t for k in ['认可', '成功', '打通', '修复', '验证', '拉满', '绝地', '理清', '完美', '契合'])]
         wrong = [t for t in tags if any(k in t for k in ['反感', '警惕', '丧失', '缺乏', '怀疑', '恐慌', '判定', '空洞', '触发违禁', '敏感', '彻底', '未满足'])]
         
         positive = f"✅ 你做对了：{correct[0].split('：')[1]}" if correct and '：' in correct[0] else "✅ 你做对了：在高压环境下坚持完成了整场对话，这本身就需要勇气。"
         negative = f"❌ 你踩坑了：{wrong[0].split('：')[1]}" if wrong and '：' in wrong[0] else "❌ 需要注意：整体表现平稳，但缺少让对方眼前一亮的关键突破点。"
         
-        question = ("💡 灵魂追问：如果对方突然提出新的反对意见，你准备好了 Plan B 吗？" if result == 'win'
-                    else "💡 灵魂追问：回顾整场对话，哪个瞬间你感觉到对方态度发生了转折？如果重来，你会做出什么不同的选择？")
+        if result == 'win':
+            q = scenario.get('aar_win_question') or '如果对方突然提出新的反对意见，你准备好了 Plan B 吗？'
+        else:
+            q = scenario.get('aar_lose_question') or '回顾整场对话，哪个瞬间是转折点？如果重来，你会做出什么不同的选择？'
         
-        return f"{positive}\n\n{negative}\n\n{question}"
+        return f"{positive}\n\n{negative}\n\n💡 灵魂追问：{q}"

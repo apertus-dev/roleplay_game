@@ -175,14 +175,7 @@ async function transition(text = '...') {
 
 // 开始游戏
 async function startGame() {
-    const nameInput = document.getElementById('player-name');
-    const name = nameInput.value.trim();
-    if (!name) {
-        nameInput.style.borderColor = 'var(--accent-red)';
-        nameInput.setAttribute('placeholder', '请输入姓名后开始');
-        nameInput.focus();
-        return;
-    }
+    const name = document.getElementById('player-name').value.trim() || '匿名玩家';
     const scenarioId = document.getElementById('scenario-id').value;
     
     const res = await fetch('/api/game/start', {

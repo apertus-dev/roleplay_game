@@ -13,7 +13,7 @@
             <div class="start-content">
                 <div class="start-badge">{{ scenario.icon }} {{ scenario.name }}</div>
                 <h1 class="start-title">守门人的突围</h1>
-                <p class="start-desc">{{ scenario.description }}<br><br>每一句话都可能改变局势。选错了，不会立刻出局——但压力会层层叠加。</p>
+                <p class="start-desc">{{ scenario.intro_text | replace('\n', '<br>') | safe }}</p>
                 <input type="hidden" id="scenario-id" value="{{ scenario.id }}">
                 <input type="text" id="player-name" placeholder="输入你的姓名" maxlength="20">
                 <button onclick="startGame()" class="btn-start">进入谈判室</button>

@@ -59,10 +59,11 @@ def make_choice():
     state, next_node_id, reaction = engine.make_choice(state, story_file, choice_index)
     session['game_state'] = state
     
-    is_over, result, reason = engine.check_game_over(state)
+    scenario = database.get_scenario(session.get('scenario_id'))
+    is_over, result, reason = engine.check_game_over(state, scenario)
     
     if is_over:
-        aar = engine.generate_aar(state['tags'], result)
+        aar = engine.generate_aar(state['tags'], result, scenario)
         game_id = database.save_game(
             session.get('scenario_id'), session.get('player_name', '匿名玩家'),
             state['safety'], state['willingness'], state['rounds'],
