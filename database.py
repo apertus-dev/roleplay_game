@@ -26,6 +26,7 @@ def init_db():
             enabled INTEGER DEFAULT 0,
             sort_order INTEGER DEFAULT 0,
             -- 场景文案
+            location TEXT,
             intro_text TEXT,
             lose_safety_text TEXT,
             lose_willingness_text TEXT,
@@ -62,9 +63,9 @@ def init_db():
         c.execute('''
             INSERT INTO scenarios (name, description, icon, story_file, enabled, sort_order,
                 initial_safety, initial_willingness, max_rounds, win_threshold,
-                intro_text, lose_safety_text, lose_willingness_text, lose_timeout_text,
+                location, intro_text, lose_safety_text, lose_willingness_text, lose_timeout_text,
                 lose_ending_text, win_text, aar_win_question, aar_lose_question)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             '产品准入沟通',
             '与院长助理谈判，争取伊赫莱双规格院内准入',
@@ -72,6 +73,7 @@ def init_db():
             'story_tree.json',
             1, 3,
             30, 10, 10, 50,
+            '市第一人民医院 · 行政楼三层 · 院长助理办公室',
             '你是罗氏制药的大客户经理。今天下午，你将走进市第一人民医院王副院长的办公室，为伊赫莱争取双规格院内准入。\n\n每一句话都可能改变局势。选错了，不会立刻出局——但压力会层层叠加。',
             '院方安全感归零——王副院长失去了所有耐心，谈判破裂。',
             '虽然完成了对话，但准入意愿度不足，院长不会真正推动。',

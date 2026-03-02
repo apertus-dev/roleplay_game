@@ -20,7 +20,7 @@ async function typeText(element, text, speed = 30) {
 
 // 更新仪表盘
 function updateMeters(state, oldState) {
-    document.getElementById('round-badge').textContent = `ROUND ${state.rounds}/10`;
+    document.getElementById('round-badge').textContent = `ROUND ${state.rounds}/${state.max_rounds || 10}`;
     
     const safetyBar = document.getElementById('safety-bar');
     const willBar = document.getElementById('willingness-bar');
@@ -145,17 +145,17 @@ async function showReaction(reaction) {
     block.appendChild(actionDiv);
     area.appendChild(block);
     
-    await typeText(actionDiv, reaction.action, 25);
+    await typeText(actionDiv, reaction.action, 35);
     
     if (reaction.thought) {
-        await sleep(500);
+        await sleep(800);
         const thoughtDiv = document.createElement('div');
         thoughtDiv.className = 'reaction-thought';
         block.appendChild(thoughtDiv);
-        await typeText(thoughtDiv, reaction.thought, 30);
+        await typeText(thoughtDiv, reaction.thought, 40);
     }
     
-    await sleep(800);
+    await sleep(600);
 }
 
 // 过场转场
@@ -165,11 +165,11 @@ async function transition(text = '...') {
     overlay.innerHTML = `<div class="transition-text">${text}</div>`;
     document.body.appendChild(overlay);
     
-    await sleep(50);
+    await sleep(100);
     overlay.classList.add('active');
-    await sleep(1200);
+    await sleep(1500);
     overlay.classList.remove('active');
-    await sleep(500);
+    await sleep(600);
     overlay.remove();
 }
 
@@ -214,31 +214,33 @@ async function makeChoice(index) {
     
     gameState = data.state;
     
-    // 1. 显示玩家选择
-    await sleep(300);
+    // 1. 选中选项短暂停留
+    await sleep(400);
     const choiceText = btns[index].textContent;
     document.getElementById('choices-area').innerHTML = '';
     showPlayerEcho(choiceText);
     
-    // 2. 更新数值（带动画）
-    await sleep(400);
+    // 2. 更新数值
+    await sleep(500);
     updateMeters(gameState, oldState);
     
     // 3. 显示 NPC 反应
-    await sleep(500);
+    await sleep(600);
     await showReaction(data.reaction);
     
+    // 4. 停顿后过场
+    await sleep(800);
+    
     if (data.game_over) {
-        // 过场 -> 结算
         await transition(data.result === 'win' ? '谈判结束' : '...');
         showEndScreen(data);
     } else {
-        // 过场 -> 下一节点
-        await transition();
-        
+        // 过场开始时清空旧内容
         document.getElementById('narrative-area').innerHTML = '';
         document.getElementById('dialogue-area').innerHTML = '';
         document.getElementById('choices-area').innerHTML = '';
+        
+        await transition();
         
         await renderScene(data.node);
         await renderDialogue(data.node);
